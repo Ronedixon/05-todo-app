@@ -3,7 +3,7 @@ import { Todo } from "../todos/models/todo.models";
 const Filters = {
     All: 'all',
     Completed: 'Completed',
-    pending: 'Pending'
+    Pending: 'Pending'
 }
 
 const state = {
@@ -11,10 +11,10 @@ const state = {
         new Todo('Piedra del alma'),
         new Todo('Piedra del infinito'),
         new Todo('Piedra del tiempo'),
-        new Todo('Piedra del mar'),
-        new Todo('Piedra del agua'),
+        new Todo('Piedra del poder'),
+        new Todo('Piedra de realidad'),
     ],
-    filters: Filters.All,
+    filter: Filters.All,
 
 }
 
@@ -23,19 +23,19 @@ const initStore = () =>{
     console.log('InitStore ');
 }
 
-const loadStores = ( )=>{
+const loadStore = ( )=>{
     throw new Error (' Not implemented');
 }
 
-const getTodos = ( filter = Filters.All)=>{
+const getTodos = ( filter = Filters.All )=>{
     switch (filter) {
         case Filters.All:
             return [...state.todos];
         case Filters.Completed:
-            return state.todos.filter( todos => todos.done );
+            return state.todos.filter( todo => todo.done );
 
-        case Filters.pending:
-            return state.todos.filter( todos => !todos.done );
+        case Filters.Pending:
+            return state.todos.filter( todo => !todo.done );
         
             default:
                 throw new Error (`Option ${ filter } is not valid.`);
@@ -65,19 +65,19 @@ const toggleTodo = ( todoId ) =>{
 }
 
 const deletTodo = (todoId) =>{
-    state.todos = state.todos.filter(todo => todo.id !== todo.id);
+    state.todos = state.todos.filter(todo => todo.id !== todoId);
 }
 
 const deletCompleted =( )=>{
-    state.todos = state.todos.filter(todo => todo !== todo.done);
+    state.todos = state.todos.filter(todo => todo.done);
 }
 
-const setfilter =(newFilter = Filters.All)=>{
-    state.filters = newFilter;
+const setFilter =(newFilter = Filters.All)=>{
+    state.filter = newFilter;
 }
 
 const getCurrentFilter =()=>{
-    return state.filters
+    return state.filter;
 }
 export default {
     addTodo,
@@ -86,6 +86,6 @@ export default {
     getCurrentFilter,
     getTodos,
     initStore,
-    loadStores,
+    loadStore,
     toggleTodo,
 }
